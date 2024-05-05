@@ -1,4 +1,4 @@
-package com.bm.drools.droolsproject.drool;
+package com.bm.drools.droolsproject;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
@@ -19,7 +19,7 @@ import java.io.IOException;
 @Configuration
 public class DroolConfig {
 
-    private KieServices kieServices = KieServices.Factory.get();
+    private final KieServices kieServices = KieServices.Factory.get();
 
     private KieFileSystem getKieFileSystem() throws IOException{
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
@@ -30,17 +30,12 @@ public class DroolConfig {
     @Bean
     public KieContainer getKieContainer() throws IOException {
         System.out.println("Container created...");
-        getKieRepository();
-        KieBuilder kb = kieServices.newKieBuilder(getKieFileSystem());
-        kb.buildAll();
-        KieModule kieModule = kb.getKieModule();
-        KieContainer kContainer = kieServices.newKieContainer(kieModule.getReleaseId());
+        KieBuilder kieBuilder = kieServices.newKieBuilder(getKieFileSystem());
+        kieBuilder.buildAll();
+        KieRepository kRepository = kieServices.getRepository();
+        ReleaseId kDefaultReleaseId = kRepository.getDefaultReleaseId();
+        KieContainer kContainer = kieServices.newKieContainer(kDefaultReleaseId);
         return kContainer;
-
-    }
-    private void getKieRepository() {
-        final KieRepository kieRepository = kieServices.getRepository();
-        kieRepository.addKieModule(() -> kieRepository.getDefaultReleaseId());
     }
 
     @Bean

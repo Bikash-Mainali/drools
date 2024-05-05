@@ -18,6 +18,9 @@ public class ApplicationService {
     @Autowired
     private KieContainer kieContainer;
 
+    @Autowired
+    private KieSession kieSession;
+
     public Rate getRate(ApplicantRequest applicantRequest){
         Rate rate = new Rate();
         KieSession kieSession = kieContainer.newKieSession();
