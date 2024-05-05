@@ -22,7 +22,8 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @PostMapping("/loan-application")
-    public ResponseEntity<Rate> orderNow(@RequestBody ApplicantRequest applicantRequest){
+    public ResponseEntity<Rate> getRate
+            (@RequestBody ApplicantRequest applicantRequest){
         Rate rate = applicationService.getRate(applicantRequest);
         return new ResponseEntity<>(rate, HttpStatus.OK);
     }

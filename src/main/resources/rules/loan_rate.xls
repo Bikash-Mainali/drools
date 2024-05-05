@@ -1,0 +1,12 @@
+RuleSet	rules		
+Import	com.bm.drools.droolsproject.domain.ApplicantRequest		
+	com.bm.drools.droolsproject.constants.ApplicationStatus		
+Global Variables	com.bm.drools.droolsproject.domain.Rate rate		
+Decision tables for rate calculation			
+RuleTable Rate Calculation 			
+NAME	CONDITION	CONDITION	ACTION
+$applicantRequest: ApplicantRequest			
+	$applicantRequest.getLoanAmount() > (2* $param)	$applicantRequest.getCreditScore() > $param	rate.setLoanStatus($param); rate.setLoanRate($param);
+Name	existingDebt	creditScore	rate
+loan > 2*debt	50000		999
+Checking Credit Score greater than 750		750	999

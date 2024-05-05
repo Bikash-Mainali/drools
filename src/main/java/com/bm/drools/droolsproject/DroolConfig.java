@@ -20,10 +20,12 @@ import java.io.IOException;
 public class DroolConfig {
 
     private final KieServices kieServices = KieServices.Factory.get();
+    //private final String RULE_PATH = "rules/loan_rate.drl";
+    private final String RULE_PATH = "rules/loan_rate.xls";
 
     private KieFileSystem getKieFileSystem() throws IOException{
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/loan_rate.drl"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource(RULE_PATH));
         return kieFileSystem;
     }
 
