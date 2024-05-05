@@ -1,0 +1,11 @@
+### Send POST request with json body
+POST http://localhost:8080/loan-application
+Content-Type: application/json
+
+{
+  "name": "Bikash Mainali",
+  "age": 27,
+  "annualSalary": 10676780,
+  "existingDebt": 89,
+  "creditScore": 750
+}

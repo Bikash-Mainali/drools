@@ -1,0 +1,45 @@
+import com.bm.drools.droolsproject.domain.ApplicantRequest;
+import com.bm.drools.droolsproject.constants.ApplicationStatus;
+global com.bm.drools.droolsproject.domain.Rate rate;
+
+dialect "mvel"
+
+rule "Checking Existing Debt Against Loan Amount"
+ when
+  ApplicantRequest(loanAmount > (2 * existingDebt))
+ then
+  rate.setLoanStatus(ApplicationStatus.REJECTED.toString() + " Too Much Debt");
+  rate.setLoanRate(999);
+end
+
+rule "Checking Annual Salary is greater than 50000"
+ when
+  ApplicantRequest(annualSalary <= 50000)
+ then
+  rate.setLoanStatus(ApplicationStatus.REJECTED.toString() + " Too low salary");
+  rate.setLoanRate(999);
+end
+
+rule "Checking Credit Score less than 550"
+ when
+  ApplicantRequest(creditScore < 550 , annualSalary > 50000,  loanAmount < (2 * existingDebt))
+ then
+  rate.setLoanStatus(ApplicationStatus.REJECTED.toString());
+  rate.setLoanRate(999);
+end
+
+rule "Checking Credit Score greater than 750"
+ when
+  ApplicantRequest(creditScore >= 750, annualSalary > 50000,  loanAmount < (2 * existingDebt))
+ then
+  rate.setLoanStatus(ApplicationStatus.APPROVED.toString());
+  rate.setLoanRate(5.25);
+end
+
+rule "Checking Credit Score less than 750"
+ when
+  ApplicantRequest((creditScore < 750 && creditScore >= 650), annualSalary > 50000,  loanAmount < (2 * existingDebt))
+ then
+  rate.setLoanStatus(ApplicationStatus.APPROVED.toString());
+  rate.setLoanRate(6.25);
+end
