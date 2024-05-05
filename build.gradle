@@ -27,13 +27,8 @@ dependencies {
 
     implementation group: 'org.drools', name: 'drools-mvel', version: '9.44.0.Final'
 
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
-
-    implementation group:'io.springfox', name:'springfox-swagger-ui', version:'3.0.0'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-
+    
 }
 
 tasks.named('test') {
