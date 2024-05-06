@@ -21,7 +21,7 @@ public class DroolConfig {
 
     private final KieServices kieServices = KieServices.Factory.get();
     //private final String RULE_PATH = "rules/loan_rate.drl";
-    private final String RULE_PATH = "rules/loan_rate.xls";
+    private final String RULE_PATH = "rules/loan_rate.drl.xls";
 
     private KieFileSystem getKieFileSystem() throws IOException{
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
