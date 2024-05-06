@@ -6,7 +6,7 @@ dialect "mvel"
 
 rule "Checking Existing Debt Against Loan Amount"
  when
-  ApplicantRequest(loanAmount > (2 * existingDebt))
+  appicant:ApplicantRequest(appicant.getLoanAmount() > (2 * appicant.getExistingDebt()))
  then
   rate.setLoanStatus(ApplicationStatus.REJECTED.toString() + " Too Much Debt");
   rate.setLoanRate(999);

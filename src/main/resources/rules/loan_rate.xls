@@ -1,12 +1,13 @@
-RuleSet	rules		
-Import	com.bm.drools.droolsproject.domain.ApplicantRequest		
-	com.bm.drools.droolsproject.constants.ApplicationStatus		
-Global Variables	com.bm.drools.droolsproject.domain.Rate rate		
-Decision tables for rate calculation			
-RuleTable Rate Calculation 			
-NAME	CONDITION	CONDITION	ACTION
-$applicantRequest: ApplicantRequest			
-	$applicantRequest.getLoanAmount() > (2* $param)	$applicantRequest.getCreditScore() > $param	rate.setLoanStatus($param); rate.setLoanRate($param);
-Name	existingDebt	creditScore	rate
-loan > 2*debt	50000		999
-Checking Credit Score greater than 750		750	999
+RuleSet	com.bm.drools.droolsproject						
+Import	com.bm.drools.droolsproject.domain.ApplicantRequest						
+	com.bm.drools.droolsproject.constants.ApplicationStatus						
+Variables	com.bm.drools.droolsproject.domain.Rate rate						
+RuleTable Rate Calculation 							
+NAME	CONDITION	CONDITION	CONDITION	CONDITION	CONDITION	CONDITION	ACTION
+applicantRequest: ApplicantRequest							
+	applicant.getLoanAmount() > $param	applicant.getLoanAmount() <  $param	applicant.getLoanAmount() <=  $param	applicant.getLoanAmount() >  $param	applicant.getCreditScore() > $param	applicant.getCreditScore() < $param	rate.setLoanStatus($1); rate.setLoanRate($2);
+Name	Existing Debt	Existing Debt	Salary	Salary	creditScore		rate
+Checking Existing Debt Against Loan Amount	2 * applicant.getExistingDebt()						"ApplicationStatus.REJECTED.toString(), 999"
+Checking Annual Salary is greater than 50000			50000				"ApplicationStatus.REJECTED.toString(), 999"
+Checking Credit Score less than 550		2 * applicant.getExistingDebt()		50000		550	"ApplicationStatus.REJECTED.toString(), 999"
+Checking Credit Score greater than 750		2 * applicant.getExistingDebt()		50000	750		"ApplicationStatus.APPROVED.toString(), 5.25"
